@@ -1,3 +1,18 @@
-before_install:
-- openssl aes-256-cbc -K $encrypted_405582d2a295_key -iv $encrypted_405582d2a295_iv
-  -in test2.txt.enc -out test2.txt -d
+language: java
+
+jdk: oraclejdk8
+
+before_script:
+- chmod +x gradlew
+
+script:
+- "./gradlew assemble"
+- "./gradlew check"
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
